@@ -1,0 +1,27 @@
+@layout('layouts.main')
+
+@section('title')
+GRAFANA - CIP
+@endsection
+
+@section('content')
+  <h1>CIP Dashboards</h1>
+
+  <div class="form-group">
+    <label for="start-time">Start Time</label>
+    <select class="form-control" id="start-time">
+      @each(start_date in start_dates)
+        <option>{{ start_date.AlarmDateTime }}</option>
+      @endeach
+    </select>
+  </div>
+
+  @each(cip in cips)
+    <div class="cip-container">
+      <div class="cip-info">
+        <h3>{{ cip.title }}</a></h3>
+        <iframe id="grafana-iframe" src="{{ cip.link }}" frameborder="0"></iframe>
+      </div>
+    </div>
+  @endeach
+@endsection

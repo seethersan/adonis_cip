@@ -1,0 +1,73 @@
+@layout('layouts.main')
+
+@section('title')
+EVENT - Dashboard
+@endsection
+
+@section('extracss')
+{{ style('forms') }}
+@endsection
+
+@section('content')
+  <h1>Event</h1>
+
+
+  <div class="container">
+    @if(flashMessage('message'))
+        <span>{{ flashMessage('message') }}</span>
+    @endif
+        <form action="{{ route('EventController.create') }}" method="POST">
+          {{ csrfField() }}
+  
+          <div class="form-group">
+            <label for="title">Event Title</label>
+            <input type="text" name="title" class="form-control" value="{{ old('title', '') }}">
+            @if(hasErrorFor('title'))
+                <span>
+                    {{ getErrorFor('title') }}
+                </span>
+            @endif
+          </div>   
+  
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" name="description">
+            @if(hasErrorFor('description'))
+                <span>
+                    {{ getErrorFor('description') }}
+                </span>
+            @endif
+          </div>
+
+          <div class="form-group">
+            <label for="almevnt">Event</label>
+            <select class="form-control" id="almevnt" name="almevnt">
+              @each(alarm in alarms)
+                <option value="{{ alarm.AlarmText }}" {{ old('alarm.AlarmText') == alarm.AlarmText ? 'selected' : '' }}>{{ alarm.AlarmText }}</option>
+              @endeach
+            </select>
+            @if(hasErrorFor('almevnt'))
+                <span>
+                    {{ getErrorFor('almevnt') }}
+                </span>
+            @endif
+          </div>
+  
+          <button type="submit">Submit a Event</button>
+        </form>
+    </div>
+
+<h2>My events</h2>
+
+  @each(event in events)
+  <div class="event-container2">
+    <div class="event-info">
+      <h3>{{ event.title }}</a></h3>
+      <ul>
+          <li><a href="{{ route('EventController.delete', { id: event.id }) }}">Delete</a></li>
+          <li><a href="{{ route('EventController.edit', { id: event.id }) }}">Edit</a></li>
+      </ul>
+    </div>
+  </div>
+  @endeach
+@endsection

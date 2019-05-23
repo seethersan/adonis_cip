@@ -1,0 +1,55 @@
+@layout('layouts.main')
+
+@section('title')
+CipPostr - Edit your Cip
+@endsection
+
+@section('extracss')
+{{ style('forms') }}
+@endsection
+
+@section('content')
+  <h1>Edit Cip</h1>
+
+
+  <div class="container">
+    @if(flashMessage('message'))
+        <span>{{ flashMessage('message') }}</span>
+    @endif
+        <form action="{{ route('CipController.update', { id: cip.id }) }}" method="POST">
+          {{ csrfField() }}
+  
+          <div class="form-group">
+            <label for="title">Cip Title</label>
+            <input type="text" name="title" class="form-control" value="{{ cip.title }}">
+            @if(hasErrorFor('title'))
+                <span>
+                    {{ getErrorFor('title') }}
+                </span>
+            @endif
+          </div>
+  
+          <div class="form-group">
+            <label for="link">Link URL</label>
+            <input type="text" name="link" class="form-control" value="{{ cip.link }}">
+            @if(hasErrorFor('link'))
+                <span>
+                    {{ getErrorFor('link') }}
+                </span>
+            @endif
+          </div>
+  
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" name="description" class="form-control" value="{{ cip.description }}">
+            @if(hasErrorFor('description'))
+                <span>
+                    {{ getErrorFor('description') }}
+                </span>
+            @endif
+          </div>
+  
+          <button type="submit">Update Cip</button><br>
+        </form>
+    </div>
+@endsection

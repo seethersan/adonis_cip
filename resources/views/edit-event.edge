@@ -1,0 +1,59 @@
+@layout('layouts.main')
+
+@section('title')
+Edit your Event
+@endsection
+
+@section('extracss')
+{{ style('forms') }}
+@endsection
+
+@section('content')
+  <h1>Edit Event</h1>
+
+
+  <div class="container">
+    @if(flashMessage('message'))
+        <span>{{ flashMessage('message') }}</span>
+    @endif
+        <form action="{{ route('EventController.update', { id: event.id }) }}" method="POST">
+          {{ csrfField() }}
+  
+          <div class="form-group">
+            <label for="title">Event Title</label>
+            <input type="text" name="title" class="form-control" value="{{ event.title }}">
+            @if(hasErrorFor('title'))
+                <span>
+                    {{ getErrorFor('title') }}
+                </span>
+            @endif
+          </div>
+  
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" name="description" class="form-control" value="{{ event.description }}">
+            @if(hasErrorFor('description'))
+                <span>
+                    {{ getErrorFor('description') }}
+                </span>
+            @endif
+          </div>
+
+          <div class="form-group">
+            <label for="almevnt">Event</label>
+            <select class="form-control" id="almevnt" name="almevnt">
+              @each(alarm in alarms)
+                <option value="{{ alarm.AlarmText }}" {{ alarm.AlarmText == event.almevnt ? 'selected' : '' }}>{{ alarm.AlarmText }}</option>
+              @endeach
+            </select>
+            @if(hasErrorFor('almevnt'))
+                <span>
+                    {{ getErrorFor('almevnt') }}
+                </span>
+            @endif
+          </div>
+  
+          <button type="submit">Update Event</button><br>
+        </form>
+    </div>
+@endsection
