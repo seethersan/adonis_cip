@@ -14,7 +14,7 @@ $(document).ready(function(){
         result.forEach(period => {
           var start_date = new Date(period.AlarmDateTime);
           var end_date = new Date(period.ClearedDateTime);
-          $('#time-period').append('<option value="'+ start_date + ',' + end_date + '">'+ period.CIP1_REC_OBJ_Value + ' - ' + start_date  + '</option>');
+          $('#time-period').append('<option value="'+ start_date + ',' + end_date + '">'+ start_date  + '</option>');
         });
       }
     });
