@@ -1,6 +1,7 @@
 'use strict'
 
 const Cip = use('App/Models/Cip');
+const Event = use('App/Models/Event');
 
 const Database = use('Database');
 
@@ -8,9 +9,9 @@ class CipController {
     async home({view}) {
         // Fetch a CIP Dashboard
         const cips = await Cip.all();
-        const start_dates = await Database.from('ALMEVNT').where('AlarmID', 'Pump_Dig');
+        const events = await Event.all();
 
-        return view.render('index', { cips: cips.toJSON(), start_dates: start_dates });
+        return view.render('index', { cips: cips.toJSON(), events: events.toJSON() });
     }
 
     async userIndex({view, auth}) {

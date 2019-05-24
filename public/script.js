@@ -10,13 +10,15 @@ $(document).ready(function(){
       contentType: "application/json",
       dataType: 'json',
       success: function(result){
-          $('#time-period').empty()
-          result.forEach(period => {
-            $('#time-period').append('<option value="'+ period.AlarmDateTime + ',' + period.ClearedDateTime + '">'+ period.AlarmDateTime + '</option>');
-          })
+        $('#time-period').empty();
+        result.forEach(period => {
+          var start_date = new Date(period.AlarmDateTime);
+          var end_date = new Date(period.ClearedDateTime);
+          $('#time-period').append('<option value="'+ start_date + ',' + end_date + '">'+ period.CIP1_REC_OBJ_Value + ' - ' + start_date  + '</option>');
+        });
       }
-    })
-  })
+    });
+  });
 
   for (i=0; i < iframes.length; i++){
     var iframe = iframes[i];

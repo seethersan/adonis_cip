@@ -8,12 +8,18 @@ GRAFANA - CIP
   <h1>CIP Dashboards</h1>
 
   <div class="form-group">
-    <label for="start-time">Start Time</label>
-    <select class="form-control" id="start-time">
-      @each(start_date in start_dates)
-        <option>{{ start_date.AlarmDateTime }}</option>
-      @endeach
+    <label for="event">Event</label>
+    <select class="form-control" id="event">
+    @each(event in events)
+        <option value="{{ event.id }}">{{ event.title }}</option>
+    @endeach
     </select>
+  </div>
+
+  <div class="form-group">
+      <label for="time-period">Time Period</label>
+      <select class="form-control" id="time-period">
+      </select>
   </div>
 
   @each(cip in cips)
