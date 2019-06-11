@@ -1,6 +1,8 @@
 $(document).ready(function(){
   var iframes = document.getElementsByTagName("iframe");
+  var buttons = document.getElementsByClassName("btn");
   var initial_srcs = [];
+  var initial_hrefs = [];
 
   var category = $('#category option:selected').val();
   var objeto = $('#objeto option:selected').val();
@@ -46,7 +48,9 @@ $(document).ready(function(){
 
   for (i=0; i < iframes.length; i++){
     var iframe = iframes[i];
+    var button = buttons[i];
     initial_srcs.push(iframe.src);
+    initial_hrefs.push(button.href);
   }
   $('#time-period').change(function() {
     time_period = $("#time-period option:selected").val().split(',');
@@ -54,6 +58,7 @@ $(document).ready(function(){
     var end_date = new Date(time_period[1]);
     for (i=0; i < iframes.length; i++){
       iframes[i].src = initial_srcs[i] + "&from=" + start_date.getTime() + "&to=" + end_date.getTime();
+      buttons[i].href = initial_hrefs[i] + "&from=" + start_date.getTime() + "&to=" + end_date.getTime();
     }
   });
 });

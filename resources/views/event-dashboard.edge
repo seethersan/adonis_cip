@@ -43,7 +43,7 @@ EVENT - Dashboard
             <label for="category">Category</label>
             <select class="form-control" id="category" name="category">
               <option disabled selected value> -- select an option -- </option>
-              @each(category in categories)                
+              @each(category in categories)
                 <option value="{{ category.id }}" {{ old('category.id') == category.id ? 'selected' : '' }}>{{ category.title }}</option>
               @endeach
             </select>
