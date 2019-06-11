@@ -55,11 +55,29 @@ CIP - Post a CIP Dashboard
 
 <h2>My cips</h2>
     <div class="form-group">
+      <label for="category">Category</label>
+      <select class="form-control" id="category">
+        <option disabled selected value> -- select an option -- </option> 
+        @each(category in categories)    
+          <option value="{{ category.id }}">{{ category.title }}</option>
+        @endeach
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="objeto">Object</label>
+      <select class="form-control" id="objeto">
+        <option disabled selected value> -- select an option -- </option>
+        @each(objeto in objects)
+          <option value="{{ objeto.CIP1_REC_OBJ_Value }}" >{{ objeto.CIP1_REC_OBJ_Value }}</option>
+        @endeach
+      </select>
+    </div>
+
+    <div class="form-group">
       <label for="event">Event</label>
       <select class="form-control" id="event">
-      @each(event in events)
-          <option value="{{ event.id }}">{{ event.title }}</option>
-      @endeach
+        <option disabled selected value> -- select an option -- </option>
       </select>
     </div>
 

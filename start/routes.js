@@ -42,6 +42,16 @@ Route.group(() => {
     Route.post('/update/:id', 'EventController.update').validator('CreateEvent');
 }).prefix('/events');
 
+Route.get('/categories', 'CategoryController.userIndex');
 Route.group(() => {
-    Route.get('/getdates/:id', 'EventController.getdates');
+    Route.get('/delete/:id', 'CategoryController.delete');
+    Route.get('/edit/:id', 'CategoryController.edit');
+    Route.post('/create', 'CategoryController.create').validator('CreateCategory');
+    Route.post('/update/:id', 'CategoryController.update').validator('CreateCategory');
+}).prefix('/categories');
+
+Route.group(() => {
+    Route.post('/getdates', 'EventController.getdates'); 
+    Route.post('/getevents', 'EventController.getevents');
+    Route.post('/getalarmevents', 'EventController.getalarmevents');
 }).prefix('/api');

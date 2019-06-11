@@ -1,5 +1,6 @@
 'use strict'
 
+const Category = use('App/Models/Category');
 const Cip = use('App/Models/Cip');
 const Event = use('App/Models/Event');
 
@@ -8,19 +9,21 @@ const Database = use('Database');
 class CipController {
     async home({view}) {
         // Fetch a CIP Dashboard
+        const categories = await Category.all();
         const cips = await Cip.all();
-        const events = await Event.all();
+        const objects = await Database.select('CIP1_REC_OBJ_Value').from('cip').distinct('CIP1_REC_OBJ_Value').whereNotNull('CIP1_REC_OBJ_Value');
 
-        return view.render('index', { cips: cips.toJSON(), events: events.toJSON() });
+        return view.render('index', { categories: categories.toJSON(), cips: cips.toJSON(), objects: objects });
     }
 
     async userIndex({view, auth}) {
 
         // Fetch all user's cips
+        const categories = await auth.user.categories().fetch();
         const cips = await auth.user.cips().fetch();
-        const events = await auth.user.events().fetch();
+        const objects = await Database.select('CIP1_REC_OBJ_Value').from('cip').distinct('CIP1_REC_OBJ_Value').whereNotNull('CIP1_REC_OBJ_Value');
 
-        return view.render('cip-dashboard', { cips: cips.toJSON(), events: events.toJSON() });
+        return view.render('cip-dashboard', { categories: categories.toJSON(), cips: cips.toJSON(), objects: objects });
     }
 
     async create({request, response, session, auth}) {

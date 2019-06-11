@@ -1,0 +1,59 @@
+@layout('layouts.main')
+
+@section('title')
+CATEGORY - Dashboard
+@endsection
+
+@section('extracss')
+{{ style('forms') }}
+@endsection
+
+@section('content')
+  <h1>Category</h1>
+
+
+  <div class="container">
+    @if(flashMessage('message'))
+        <span>{{ flashMessage('message') }}</span>
+    @endif
+        <form action="{{ route('CategoryController.create') }}" method="POST">
+          {{ csrfField() }}
+  
+          <div class="form-group">
+            <label for="title">Category Title</label>
+            <input type="text" name="title" class="form-control" value="{{ old('title', '') }}">
+            @if(hasErrorFor('title'))
+                <span>
+                    {{ getErrorFor('title') }}
+                </span>
+            @endif
+          </div>   
+  
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" name="description">
+            @if(hasErrorFor('description'))
+                <span>
+                    {{ getErrorFor('description') }}
+                </span>
+            @endif
+          </div>
+  
+          <button type="submit">Submit a Category</button>
+        </form>
+    </div>
+
+<h2>My categories</h2>
+
+  @each(category in categories)
+  <div class="category-container2">
+    <div class="category-info">
+      <h3>{{ category.title }}</a></h3>
+      <ul>
+          <li><a href="{{ route('CategoryController.delete', { id: category.id }) }}">Delete</a></li>
+          <li><a href="{{ route('CategoryController.edit', { id: category.id }) }}">Edit</a></li>
+      </ul>
+    </div>
+  </div>
+  @endeach
+@endsection

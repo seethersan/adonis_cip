@@ -40,18 +40,46 @@ Edit your Event
           </div>
 
           <div class="form-group">
-            <label for="almevnt">Event</label>
-            <select class="form-control" id="almevnt" name="almevnt">
-              @each(alarm in alarms)
-                <option value="{{ alarm.AlarmText }}" {{ alarm.AlarmText == event.almevnt ? 'selected' : '' }}>{{ alarm.AlarmText }}</option>
-              @endeach
-            </select>
-            @if(hasErrorFor('almevnt'))
-                <span>
-                    {{ getErrorFor('almevnt') }}
-                </span>
-            @endif
-          </div>
+              <label for="category">Category</label>
+              <select class="form-control" id="category" name="category">
+                <option disabled selected value> -- select an option -- </option>
+                @each(category in categories)                
+                  <option value="{{ category.id }}" {{ category.id == event.category ? 'selected' : '' }}>{{ category.title }}</option>
+                @endeach
+              </select>
+              @if(hasErrorFor('category'))
+                  <span>
+                      {{ getErrorFor('category') }}
+                  </span>
+              @endif
+            </div>
+  
+            <div class="form-group">
+              <label for="objeto">Object</label>
+              <select class="form-control" id="objeto" name="objeto">
+                <option disabled selected value> -- select an option -- </option>
+                @each(objeto in objects)
+                  <option value="{{ objeto.CIP1_REC_OBJ_Value }}" {{ objeto.CIP1_REC_OBJ_Value == event.objeto ? 'selected' : '' }}>{{ objeto.CIP1_REC_OBJ_Value }}</option>
+                @endeach
+              </select>
+              @if(hasErrorFor('objeto'))
+                  <span>
+                      {{ getErrorFor('objeto') }}
+                  </span>
+              @endif
+            </div>
+  
+            <div class="form-group">
+              <label for="almevnt">Event</label>
+              <input type="hidden" id="alarmevent" name="alarmevent" value="{{ event.almevnt }}">
+              <select class="form-control" id="almevnt" name="almevnt">
+              </select>
+              @if(hasErrorFor('almevnt'))
+                  <span>
+                      {{ getErrorFor('almevnt') }}
+                  </span>
+              @endif
+            </div>
   
           <button type="submit">Update Event</button><br>
         </form>

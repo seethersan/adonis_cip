@@ -35,6 +35,10 @@ class User extends Model {
     return this.hasMany('App/Models/Token');
   }
 
+  categories () {
+    return this.hasMany('App/Models/Category');
+  }
+
   cips () {
     return this.hasMany('App/Models/Cip');
   }

@@ -40,11 +40,38 @@ EVENT - Dashboard
           </div>
 
           <div class="form-group">
+            <label for="category">Category</label>
+            <select class="form-control" id="category" name="category">
+              <option disabled selected value> -- select an option -- </option>
+              @each(category in categories)                
+                <option value="{{ category.id }}" {{ old('category.id') == category.id ? 'selected' : '' }}>{{ category.title }}</option>
+              @endeach
+            </select>
+            @if(hasErrorFor('category'))
+                <span>
+                    {{ getErrorFor('category') }}
+                </span>
+            @endif
+          </div>
+
+          <div class="form-group">
+            <label for="objeto">Object</label>
+            <select class="form-control" id="objeto" name="objeto">
+              <option disabled selected value> -- select an option -- </option>
+              @each(objeto in objects)
+                <option value="{{ objeto.CIP1_REC_OBJ_Value }}" {{ old('objeto.CIP1_REC_OBJ_Value') == objeto.CIP1_REC_OBJ_Value ? 'selected' : '' }}>{{ objeto.CIP1_REC_OBJ_Value }}</option>
+              @endeach
+            </select>
+            @if(hasErrorFor('objeto'))
+                <span>
+                    {{ getErrorFor('objeto') }}
+                </span>
+            @endif
+          </div>
+
+          <div class="form-group">
             <label for="almevnt">Event</label>
             <select class="form-control" id="almevnt" name="almevnt">
-              @each(alarm in alarms)
-                <option value="{{ alarm.AlarmText }}" {{ old('alarm.AlarmText') == alarm.AlarmText ? 'selected' : '' }}>{{ alarm.AlarmText }}</option>
-              @endeach
             </select>
             @if(hasErrorFor('almevnt'))
                 <span>

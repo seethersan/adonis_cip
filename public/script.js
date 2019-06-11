@@ -2,19 +2,43 @@ $(document).ready(function(){
   var iframes = document.getElementsByTagName("iframe");
   var initial_srcs = [];
 
+  var category = $('#category option:selected').val();
+  var objeto = $('#objeto option:selected').val();
+  getAlarmEvents(category, objeto);
+  getEvents(category, objeto);
+
+  $("#category").change(function(){
+    var category = $('#category option:selected').val();
+    var objeto = $('#objeto option:selected').val();
+    getAlarmEvents(category, objeto);
+    getEvents(category, objeto);
+  });
+
+  $("#objeto").change(function(){
+    var category = $('#category option:selected').val();
+    var objeto = $('#objeto option:selected').val();
+    getAlarmEvents(category, objeto);
+    getEvents(category, objeto);
+  });
+
   $('#event').change(function(){
     var event = $('#event option:selected').val();
 
     $.ajax({
-      url: "http://127.0.0.1:3333/api/getdates/" + event,
+      type: "POST",
+      url: "/api/getdates",
       contentType: "application/json",
       dataType: 'json',
+      data: JSON.stringify({
+        "event": event
+      }),
       success: function(result){
         $('#time-period').empty();
+        $('#time-period').append('<option disabled selected value> -- select an option -- </option>');
         result.forEach(period => {
           var start_date = new Date(period.AlarmDateTime);
           var end_date = new Date(period.ClearedDateTime);
-          $('#time-period').append('<option value="'+ start_date + ',' + end_date + '">'+ start_date  + '</option>');
+          $('#time-period').append('<option value="'+ start_date + ',' + end_date + '">'+ start_date.toString().replace(/GMT.+/,"")  + '</option>');
         });
       }
     });
@@ -33,3 +57,49 @@ $(document).ready(function(){
     }
   });
 });
+
+function getAlarmEvents(category, objeto){
+  $.ajax({
+    type: "POST",
+    url: "/api/getalarmevents",
+    contentType: "application/json",
+    dataType: 'json',
+    data: JSON.stringify({
+      "category": category,
+      "objeto": objeto ? objeto : ""
+    }),
+    success: function(result){
+      $('#almevnt').empty();
+      var almevnt = $('#alarmevent').val();
+      if (result != undefined){
+        result.forEach(event => {        
+            var event_name = event.AlarmText;
+            $('#almevnt').append('<option value="'+ event_name + '"' + (event_name == almevnt ? ' selected' : '') + '>'+ event_name  + '</option>');    
+        });
+      }
+    }
+  });
+}
+
+function getEvents(category, objeto){
+  $.ajax({
+    type: "POST",
+    url: "/api/getevents",
+    contentType: "application/json",
+    dataType: 'json',
+    data: JSON.stringify({
+      "category": category,
+      "objeto": objeto ? objeto : ""
+    }),
+    success: function(result){
+      $('#event').empty();
+      $('#event').append('<option disabled selected value> -- select an option -- </option>');
+      if (result != undefined){
+        result.forEach(event => {
+          var event_name = event.title;
+          $('#event').append('<option value="'+ event_name + '">'+ event_name  + '</option>');
+        });
+      }
+    }
+  });
+}

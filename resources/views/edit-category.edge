@@ -1,0 +1,45 @@
+@layout('layouts.main')
+
+@section('title')
+Edit your Category
+@endsection
+
+@section('extracss')
+{{ style('forms') }}
+@endsection
+
+@section('content')
+  <h1>Edit Category</h1>
+
+
+  <div class="container">
+    @if(flashMessage('message'))
+        <span>{{ flashMessage('message') }}</span>
+    @endif
+        <form action="{{ route('CategoryController.update', { id: event.id }) }}" method="POST">
+          {{ csrfField() }}
+  
+          <div class="form-group">
+            <label for="title">Category Title</label>
+            <input type="text" name="title" class="form-control" value="{{ event.title }}">
+            @if(hasErrorFor('title'))
+                <span>
+                    {{ getErrorFor('title') }}
+                </span>
+            @endif
+          </div>
+  
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" name="description" class="form-control" value="{{ event.description }}">
+            @if(hasErrorFor('description'))
+                <span>
+                    {{ getErrorFor('description') }}
+                </span>
+            @endif
+          </div>
+  
+          <button type="submit">Update Category</button><br>
+        </form>
+    </div>
+@endsection

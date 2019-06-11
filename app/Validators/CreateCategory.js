@@ -1,11 +1,10 @@
 'use strict'
 
-class CreateEvent {
+class CreateCategory {
   get rules () {
     return {
       title: 'required',
-      almevnt: 'required',
-      category: 'required'
+      description: 'required'
     }
   }
   get messages() {
@@ -22,4 +21,4 @@ class CreateEvent {
   }
 }
 
-module.exports = CreateEvent
+module.exports = CreateCategory
