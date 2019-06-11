@@ -50,7 +50,7 @@ $(document).ready(function(){
     var iframe = iframes[i];
     var button = buttons[i];
     initial_srcs.push(iframe.src);
-    initial_hrefs.push(button.href);
+    initial_hrefs.push(button.href.replace("-solo", ""));
   }
   $('#time-period').change(function() {
     time_period = $("#time-period option:selected").val().split(',');
