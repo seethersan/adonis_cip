@@ -92,7 +92,7 @@ CIP - Post a CIP Dashboard
     <div class="cip-info">
       <h3>{{ cip.title }}</a></h3>
       <iframe id="grafana-iframe" src="{{ cip.link }}" frameborder="0"></iframe>
-      <a href="{{ cip.link }}" type="button" class="btn btn-primary">Detalle</a>
+      <a href="{{ cip.link }}" type="button" class="btn btn-primary" target="_blank">Detalle</a>   
       <ul>
           <li><a href="{{ route('CipController.delete', { id: cip.id }) }}">Delete</a></li>
           <li><a href="{{ route('CipController.edit', { id: cip.id }) }}">Edit</a></li>

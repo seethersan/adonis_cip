@@ -40,7 +40,9 @@ $(document).ready(function(){
         result.forEach(period => {
           var start_date = new Date(period.AlarmDateTime);
           var end_date = new Date(period.ClearedDateTime);
-          $('#time-period').append('<option value="'+ start_date + ',' + end_date + '">'+ start_date.toString().replace(/GMT.+/,"")  + '</option>');
+          var label_date = new Date(period.AlarmDateTime);
+          label_date.setHours(label_date.getHours() - 5);
+          $('#time-period').append('<option value="'+ start_date + ',' + end_date + '">'+ label_date.toString().replace(/GMT.+/,"")  + '</option>');
         });
       }
     });
